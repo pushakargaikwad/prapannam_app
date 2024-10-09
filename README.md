@@ -29,6 +29,10 @@ Certain Components require manual build steps like [date-time picker](https://gi
 
 AGPL-3.0 or later
 
+## Credits
+
+- [Doppio Mobile](https://github.com/NagariaHussain/doppio_mobile) for the tutorial and GitHub repository that helped with the Authentication component.
+
 ## Copyright
 
 2024, Pushakar Gaikwad and contributors
