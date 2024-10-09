@@ -6,11 +6,24 @@ This App is WIP
 
 The app is bootstrapped using command `npx create-expo-app prapannam --template tabs`
 
+
+## Initial Setup
+
+Clone the repo and cd into the directory
+
+```bash	
+npm install
+```
+
 ## Run
 
 ```bash
 npx expo
 ```
+
+## Building
+
+Certain Components require manual build steps like [date-time picker](https://github.com/react-native-datetimepicker/datetimepicker/blob/HEAD/docs/manual-installation.md). 
 
 ## License
 
