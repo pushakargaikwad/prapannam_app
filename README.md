@@ -21,6 +21,12 @@ npm install
 npx expo
 ```
 
+
+
+## Building
+
+Certain Components require manual build steps like [date-time picker](https://github.com/react-native-datetimepicker/datetimepicker/blob/HEAD/docs/manual-installation.md). 
+
 ### Local Dev Build
 
 Android
@@ -32,9 +38,11 @@ If build fails for sdk not found, create a file `android\local.properties` and a
 
 `sdk.dir = c:\path\to\sdk`
 
-## Building
+### Local Release Build
 
-Certain Components require manual build steps like [date-time picker](https://github.com/react-native-datetimepicker/datetimepicker/blob/HEAD/docs/manual-installation.md). 
+```bash	
+npx expo run android --variant release
+```
 
 ## License
 
