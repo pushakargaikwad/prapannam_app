@@ -38,6 +38,18 @@ If build fails for sdk not found, create a file `android\local.properties` and a
 
 `sdk.dir = c:\path\to\sdk`
 
+### Ads
+
+Developing Prapannam requires significant time and effort, and we are committed to providing a high-quality app that respects user freedoms under the AGPLv3 license. To ensure the app's sustainability and profitability, we generate revenue through advertisements and are actively exploring additional monetization strategies such as in-app purchases, subscriptions, and one-time purchases. Our goal is to offer an exceptional user experience while building a successful and profitable platform.
+
+
+#### Ads Build additional steps
+
+Makes use of [React Native Google Mobile Ads plugin](https://docs.page/invertase/react-native-google-mobile-ads) to show ads using Google AdMob in the app. You can follow the steps from [this tutorial](https://dev.to/josie/adding-google-admob-to-expo-apps-2din) to install plugin, configure Google AdMob and build the app.
+- `npx expo config` to check if config is correct
+- `npx expo prebuild` to copy the config to the android folder
+- `npx expo run android` to build the app
+
 ### Local Release Build
 
 ```bash	
