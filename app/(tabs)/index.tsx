@@ -2,14 +2,13 @@ import { StyleSheet } from "react-native";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
 // import {  View } from '@/components/Themed';
-import { DateTimePicker, Text, View } from "react-native-ui-lib";
+import {  Text, View } from "react-native-ui-lib";
 import { UserDetails } from "@/components/UserDetails";
 
 export default function TabOneScreen() {
   return (
     <View flex padding-20>
       <Text text30>Some Text</Text>
-      <DateTimePicker placeholder={"Placeholder"} />
       <UserDetails />
       <View
         style={styles.separator}
