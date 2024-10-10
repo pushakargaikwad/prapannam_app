@@ -21,6 +21,17 @@ npm install
 npx expo
 ```
 
+### Local Dev Build
+
+Android
+```bash
+npx expo run android
+```
+
+If build fails for sdk not found, create a file `android\local.properties` and add the following
+
+`sdk.dir = c:\path\to\sdk`
+
 ## Building
 
 Certain Components require manual build steps like [date-time picker](https://github.com/react-native-datetimepicker/datetimepicker/blob/HEAD/docs/manual-installation.md). 
