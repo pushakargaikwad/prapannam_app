@@ -1,4 +1,4 @@
-import InlineAd from "@/components/InlineAd";
+import CreateSadhanaLogItem from "@/components/CreateSadhanaLogItem";
 import { SadhanaLogDetails } from "@/components/SadhanaLogDetails";
 import { useState } from "react";
 import { View, DateTimePicker } from "react-native-ui-lib";
@@ -17,6 +17,7 @@ export default function sadhanaLogDetailsScreen() {
         }}
         />
       <SadhanaLogDetails date={sadhanaDate.toISOString().split("T")[0]} />
+      <CreateSadhanaLogItem/>
     </View>
         {/* <InlineAd/> */}
         </>

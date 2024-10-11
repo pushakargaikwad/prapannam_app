@@ -2,6 +2,7 @@ import { useFrappeGetCall } from "frappe-react-sdk";
 import React from "react";
 import { Text, Button } from "react-native-ui-lib";
 import { SadhanaLogItems } from "./SadhanaLogItems";
+import { FlatList } from "react-native";
 
 export const SadhanaLogDetails = ({
   date = new Date().toISOString().split("T")[0],
@@ -31,13 +32,14 @@ export const SadhanaLogDetails = ({
     return (
       <>
         <Text text50>Sadhana Details: </Text>
-        {data.message.sadhana_list.map((sadhana) => (
-          <React.Fragment key={sadhana.name}>
-            <Text>Points: {sadhana.total_points}</Text>
-            {/* <Text>Logging: {JSON.stringify(sadhana)}</Text> */}
-            <SadhanaLogItems sadhana_log={sadhana.name}/>
-          </React.Fragment>
-        ))}
+        <FlatList 
+          data={data.message.sadhana_list}
+          renderItem={({item}) => <SadhanaLogItems sadhana_log={item.name}/>}
+          keyExtractor={item => item.name}
+        >
+
+        </FlatList>
+
         <Button label={"Reload Log"} onPress={() => mutate()}></Button>
       </>
     );
