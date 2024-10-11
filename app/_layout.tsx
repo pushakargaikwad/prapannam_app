@@ -12,6 +12,7 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import FrappAuthProvider from "./FrappeAuthProvider";
+import mobileAds from 'react-native-google-mobile-ads';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -31,6 +32,16 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
+
+  useEffect(() => {
+    (async () => {
+      // Google AdMob will show any messages here that you just set up on the AdMob Privacy & Messaging page
+      
+
+      // Initialize the ads
+      await mobileAds().initialize();
+    })();
+}, [])
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
