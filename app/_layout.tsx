@@ -13,6 +13,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/components/useColorScheme";
 import FrappAuthProvider from "./FrappeAuthProvider";
 import mobileAds from 'react-native-google-mobile-ads';
+import { Platform } from "react-native";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -36,10 +37,12 @@ export default function RootLayout() {
   useEffect(() => {
     (async () => {
       // Google AdMob will show any messages here that you just set up on the AdMob Privacy & Messaging page
-      
+      if(Platform.OS!=='web'){
 
-      // Initialize the ads
-      await mobileAds().initialize();
+        
+        // Initialize the ads
+        await mobileAds().initialize();
+      }
     })();
 }, [])
 
