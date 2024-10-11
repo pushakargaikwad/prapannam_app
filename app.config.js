@@ -8,6 +8,12 @@ module.exports = ({ config }) => {
         ...(config.android || {}),
         "package": "com.prapannam"
       },
+      "web": {
+        ...(config.web || {}),
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
     "plugins": [
       ...(config.plugins || []),
       [
