@@ -2,7 +2,8 @@ import { useFrappeGetCall } from "frappe-react-sdk";
 import React from "react";
 import { Text, Button } from "react-native-ui-lib";
 import { SadhanaLogItems } from "./SadhanaLogItems";
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
+import CreateSadhanaLogItem from "./CreateSadhanaLogItem";
 
 export const SadhanaLogDetails = ({
   date = new Date().toISOString().split("T")[0],
@@ -31,16 +32,24 @@ export const SadhanaLogDetails = ({
     console.log(data);
     return (
       <>
-        <Text text50>Sadhana Details: </Text>
-        <FlatList 
+        {/* There can be multiple sadhana logs for given date, we are receiving a list. therefore iterating over those logs */}
+        <FlatList
           data={data.message.sadhana_list}
-          renderItem={({item}) => <SadhanaLogItems sadhana_log={item.name}/>}
-          keyExtractor={item => item.name}
-        >
+          renderItem={({ item }) => (
+            <>
+              <Text text50>Sadhana Details: </Text>
+              <Text>Points: {item.total_points}</Text>
+              <Text>Date: {item.date}</Text>
+              {/** Sadhana log items are the individual log items  */}
+              <SadhanaLogItems sadhana_log={item.name} />
+              <CreateSadhanaLogItem parent={item.name} />
+            </>
+          )}
+          keyExtractor={(item) => item.name}
+          refreshControl={ <RefreshControl refreshing={isValidating} onRefresh={mutate} /> }
+        ></FlatList>
 
-        </FlatList>
-
-        <Button label={"Reload Log"} onPress={() => mutate()}></Button>
+        {/* <Button label={"Reload Log"} onPress={() => mutate()}></Button> */}
       </>
     );
   }
