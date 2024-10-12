@@ -51,7 +51,7 @@ export const SadhanaLogItems = ({ sadhana_log }) => {
           </React.Fragment>
         ))}
 
-        <Button label={"Reload Log"} onPress={() => mutate()}></Button>
+        {/* <Button label={"Reload Log Items"} onPress={() => mutate()}></Button> */}
       </>
     );
   }
