@@ -12,7 +12,8 @@ module.exports = ({ config }) => {
         ...(config.web || {}),
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "scheme": "com.prapannam",
     },
     "plugins": [
       ...(config.plugins || []),
