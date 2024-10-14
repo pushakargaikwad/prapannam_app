@@ -14,6 +14,7 @@ import { useColorScheme } from "@/components/useColorScheme";
 import FrappAuthProvider from "./FrappeAuthProvider";
 import mobileAds from 'react-native-google-mobile-ads';
 import { Platform } from "react-native";
+import { SadhanaProvider } from "@/utils/SadhanaProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -70,10 +71,13 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <FrappAuthProvider>
+        <SadhanaProvider>
+
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         </Stack>
+        </SadhanaProvider>
       </FrappAuthProvider>
     </ThemeProvider>
   );
