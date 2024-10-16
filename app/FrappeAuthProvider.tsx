@@ -1,15 +1,16 @@
 import { FrappeProvider } from "frappe-react-sdk";
 import { API_TOKEN, BASE_URL, SITE_NAME} from "../constants/dev/dev";
 import { createContext, useEffect, useState } from "react";
-import { UserContext, UserProvider } from "@/utils/UserProvider";
+
 import * as AuthSession from "expo-auth-session";
 import * as SecureStore from "expo-secure-store";
 
 const REDIRECT_URL_SCHEME = "com.prapannam";
 var BASE_URI = 'https://prapannam.com/';
-var OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID;
-const SECURE_AUTH_STATE_KEY = "AuthState1";
+var OAUTH_CLIENT_ID = process.env.EXPO_PUBLIC_OAUTH_CLIENT_ID;
+const SECURE_AUTH_STATE_KEY = "AuthState";
 
+export const AuthContext = createContext<any>({});
 const FrappeAuthProvider = (props) => {
 
     const [localServer, setLocalServer] = useState(false);
@@ -24,8 +25,8 @@ const FrappeAuthProvider = (props) => {
 
         // BASE_URI = 'https://prapannam.com/'
         // OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID
-        BASE_URI = 'http://192.168.1.5:8005'
-        OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID
+        BASE_URI = process.env.EXPO_PUBLIC_BASE_URL;
+        OAUTH_CLIENT_ID = process.env.EXPO_PUBLIC_OAUTH_CLIENT_ID
       }
       
       },[localServer])
@@ -138,12 +139,15 @@ const FrappeAuthProvider = (props) => {
         type: localServer ? "token" : "Bearer",
       }}
     >
-      <UserProvider>
-      <UserContext.Provider value={{ isAuthenticated, promptAsync, logout }}>
-      {props.children}
-      </UserContext.Provider>
+      <AuthContext.Provider value={{ isAuthenticated, promptAsync, logout }}>
+
+ 
       
-      </UserProvider>
+      {props.children}
+  
+      
+     
+      </AuthContext.Provider>
     </FrappeProvider>
   );
 };

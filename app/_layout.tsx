@@ -15,6 +15,9 @@ import FrappAuthProvider from "./FrappeAuthProvider";
 import mobileAds from 'react-native-google-mobile-ads';
 import { Platform } from "react-native";
 import { SadhanaProvider } from "@/utils/SadhanaProvider";
+import { ThemeManager } from "react-native-ui-lib";
+import Colors from "@/constants/Colors";
+import { UserProvider } from "@/utils/UserProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -34,7 +37,7 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
-
+  
   useEffect(() => {
     (async () => {
       // Google AdMob will show any messages here that you just set up on the AdMob Privacy & Messaging page
@@ -68,9 +71,15 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
+  ThemeManager.setComponentTheme('View', {
+    backgroundColor: 'rgba(255, 248, 220, 0.8)'
+});
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <FrappAuthProvider>
+        <UserProvider>
+
         <SadhanaProvider>
 
         <Stack>
@@ -78,6 +87,7 @@ function RootLayoutNav() {
           <Stack.Screen name="modal" options={{ presentation: "modal" }} />
         </Stack>
         </SadhanaProvider>
+        </UserProvider>
       </FrappAuthProvider>
     </ThemeProvider>
   );

@@ -6,9 +6,10 @@ import {  Button, Text, View } from "react-native-ui-lib";
 import { UserDetails } from "@/components/UserDetails";
 import { useContext } from "react";
 import { UserContext } from "@/utils/UserProvider";
+import { AuthContext } from "../FrappeAuthProvider";
 
 export default function TabOneScreen() {
-  const { isAuthenticated, promptAsync, logout  } =  useContext(UserContext);
+  const { isAuthenticated, promptAsync, logout  } =  useContext(AuthContext);
   return (
     <View flex padding-20>
       <Text text30>Some Text!</Text>
