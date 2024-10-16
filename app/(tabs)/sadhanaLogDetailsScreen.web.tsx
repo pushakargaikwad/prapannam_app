@@ -16,8 +16,8 @@ export default function sadhanaLogDetailsScreen() {
             }
         }}
         />
-      <SadhanaLogDetails date={sadhanaDate.toISOString().split("T")[0]} />
-      <CreateSadhanaLogItem/>
+      {/* <SadhanaLogDetails date={sadhanaDate.toISOString().split("T")[0]} /> */}
+      {/* <CreateSadhanaLogItem/> */}
     </View>
         {/* <InlineAd/> */}
         </>
