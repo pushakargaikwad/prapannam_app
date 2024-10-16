@@ -26,13 +26,7 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}>
-        <Tabs.Screen
-        name="sadhanaLogDetailsScreen"
-        options={{
-          title: 'Sadhana Log Details',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
+        
       <Tabs.Screen
         name="index"
         options={{
@@ -55,12 +49,29 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="HomeScreen"
+        options={{
+          title: 'Sadhana Log Details',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="two"
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="Settings"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
+        }}
+      />
+
+       
+
       
     </Tabs>
   );

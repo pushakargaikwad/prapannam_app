@@ -18,10 +18,10 @@ export const SadhanaProvider = ({ children }: PropsWithChildren) => {
     }, [data]);
     
       if (isValidating) {
-        return <Text text30>Loading</Text>;
+        // return <Text text30>Loading</Text>;
       }
       if (error) {
-        return <Text>{JSON.stringify(error)}</Text>;
+        // return <Text>{JSON.stringify(error)}</Text>;
       }
       
 

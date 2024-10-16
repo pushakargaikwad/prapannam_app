@@ -4,6 +4,7 @@ module.exports = ({ config }) => {
     ...config,
     "expo": {
       ...config.expo,
+      slug: "prapannam",
       "android": {
         ...(config.android || {}),
         "package": "com.prapannam"
@@ -15,6 +16,7 @@ module.exports = ({ config }) => {
       "favicon": "./assets/images/favicon.png",
       "scheme": "com.prapannam",
     },
+    "scheme": "com.prapannam",
     "plugins": [
       ...(config.plugins || []),
       [
@@ -23,7 +25,10 @@ module.exports = ({ config }) => {
           "androidAppId": process.env.EXPO_PUBLIC_ADMOb_APPID,
           
           "facebookMediation": false
-        }
+        },
+      ],
+      [
+        "expo-secure-store"
       ]
     ]
   }
