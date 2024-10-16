@@ -31,7 +31,7 @@ Certain Components require manual build steps like [date-time picker](https://gi
 
 Android
 ```bash
-npx expo run android
+npm run dev
 ```
 
 If build fails for sdk not found, create a file `android\local.properties` and add the following
@@ -48,7 +48,7 @@ Developing Prapannam requires significant time and effort, and we are committed 
 Makes use of [React Native Google Mobile Ads plugin](https://docs.page/invertase/react-native-google-mobile-ads) to show ads using Google AdMob in the app. You can follow the steps from [this tutorial](https://dev.to/josie/adding-google-admob-to-expo-apps-2din) to install plugin, configure Google AdMob and build the app.
 - `npx expo config` to check if config is correct
 - `npx expo prebuild` to copy the config to the android folder
-    - `npx expo prebuild --clear` to recreate the android folder fresh
+    - `npx expo prebuild --clean` to recreate the android folder fresh
 - `npx expo run android` to build the app
 
 ### Local Release Build

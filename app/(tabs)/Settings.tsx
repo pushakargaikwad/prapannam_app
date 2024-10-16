@@ -2,7 +2,7 @@ import { UserDetails } from "@/components/UserDetails"
 import { UserContext } from "@/utils/UserProvider"
 import { Stack } from "expo-router"
 import { useContext } from "react"
-import { Button, Card, Colors, View } from "react-native-ui-lib"
+import { Button, Card, Colors, View,Text } from "react-native-ui-lib"
 
 export default function SettingsScreen(){
     const {logout} = useContext(UserContext)
@@ -25,7 +25,7 @@ export default function SettingsScreen(){
                 activeOpacity={1}
                 activeScale={1.04}
             >
-                
+                <Text >{process.env.EXPO_PUBLIC_OAUTH_CLIENT_ID}</Text>
             </Card>
             <Button
               label={'Logout'}
