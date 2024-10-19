@@ -3,9 +3,10 @@ import { UserContext } from "@/utils/UserProvider"
 import { Stack } from "expo-router"
 import { useContext } from "react"
 import { Button, Card, Colors, View,Text } from "react-native-ui-lib"
+import { AuthContext } from "../FrappeAuthProvider"
 
 export default function SettingsScreen(){
-    const {logout} = useContext(UserContext)
+    const {isAuthenticated, promptAsync,logout} = useContext(AuthContext)
     return(
     <>
         <View flex padding-20>
@@ -27,12 +28,14 @@ export default function SettingsScreen(){
             >
                 <Text >{process.env.EXPO_PUBLIC_OAUTH_CLIENT_ID}</Text>
             </Card>
-            <Button
+            {!isAuthenticated && <Button onPress={()=>{promptAsync()}} label="login"></Button>}
+            {isAuthenticated && <Button
               label={'Logout'}
               backgroundColor={Colors.$backgroundDangerHeavy}
               style={{marginBottom: 20}}
               onPress={() => {logout()}} 
-            />
+            />}
+            
         </View>
     </>)
 }
