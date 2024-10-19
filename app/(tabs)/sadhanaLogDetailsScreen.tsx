@@ -38,22 +38,13 @@ export default function sadhanaLogDetailsScreen() {
 
         <UserGroupsComp />
         <SadhanaLogDetails date={sadhanaDate.toISOString().split("T")[0]} />
-        <Button label={"Another Addd New Sadhana Log"} onPress={()  => setVisible(true)} />
+
         
-      <InlineAd />
+      
       </View>
-        <Dialog
-          useSafeArea
-          
-          bottom
-          
-          visible={visible}
-          onDismiss={onDismiss}
-          
-          >
-         <Text>Hello</Text>
-        {/* <CreateSadhanaLogItem />   */}
-      </Dialog>
+      <InlineAd />
+    
+
             </>
    
       

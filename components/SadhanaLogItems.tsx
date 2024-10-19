@@ -22,7 +22,7 @@ export const SadhanaLogItems = ({ sadhana_log }) => {
       return (
         <>
           <Text>You dont have any Sadhana Logs recorded for this date</Text>
-          <Button label={"Reload Items"} onPress={() => mutate()} />
+          {/* <Button label={"Reload Items"} onPress={() => mutate()} /> */}
         </>
       );
     }

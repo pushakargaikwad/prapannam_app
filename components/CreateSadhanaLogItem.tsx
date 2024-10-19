@@ -1,8 +1,8 @@
-import { View, Text, Button, NumberInput, FloatingButton, FloatingButtonLayouts, Colors, Incubator, Card, Dialog } from "react-native-ui-lib";
+import { View, Text, Button, NumberInput, FloatingButton, FloatingButtonLayouts, Colors, Incubator, Card, Dialog, TextField } from "react-native-ui-lib";
 import React, { useContext, useEffect, useState } from "react";
 import { useFrappeCreateDoc, useFrappePostCall } from "frappe-react-sdk";
 import { Picker } from "react-native-ui-lib/src/components/picker";
-import { ScrollView, TextInput, StyleSheet } from "react-native";
+import { ScrollView, TextInput, StyleSheet, Modal, Pressable } from "react-native";
 import { getBackgroundColor } from "react-native-ui-lib/src/helpers/AvatarHelper";
 import { SadhanaContext } from "@/utils/SadhanaProvider";
 import * as Haptics from 'expo-haptics';
@@ -91,7 +91,9 @@ const handleCreateSadhanaLog = async () => {
       //    //  modalProps={this.modalProps}
       //    //  headerProps={this.headerProps}
       //    >
-          <Dialog
+      <Modal animationType="slide" transparent={true} visible={visible}>
+        
+          {/* <Dialog
           useSafeArea
           
           
@@ -99,9 +101,19 @@ const handleCreateSadhanaLog = async () => {
           visible={visible}
           onDismiss={onDismiss}
           
-          >
+          > */}
        
-        <Card height={150} padding-20>
+        {/* <Card height={150} padding-20> */}
+        <View style={styles.modalContent}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Add Sadhana Item</Text>
+          <Pressable onPress={onDismiss}>
+            {/* <MaterialIcons name="close" color="#fff" size={22} /> */}
+            <Text style={{color:"white"}} text50H>X</Text>
+          </Pressable>
+        </View>
+      
+            <View flex padding-20 style={{ flexDirection: 'column', justifyContent: 'space-between' }} >
 
       <Picker
         label="Sadhana Type"
@@ -111,42 +123,77 @@ const handleCreateSadhanaLog = async () => {
         onChange={(item) => setSadhanaType(item)}
         customPickerProps={{
           migrateDialog: true,
-          dialogProps: { bottom: true, width: "100%", height: "30%" },
+          dialogProps: { bottom: true, width: "100%", height: "45%" },
         }}
         showSearch
         searchPlaceholder={"Search Sadhana Type"}
-        enableModalBlur
+        
+        marginB-20
         />
-       <TextInput
+       {/* <TextInput
        
        onChangeText={setQty}
        value={qty}
        placeholder="qty"
        keyboardType="numeric"
-       />
+       marginB-40
+       /> */}
+        <TextField
+          value={qty}
+          placeholder="Enter Qty"
+          keyboardType="numeric"
+          onChangeText={setQty}
+          trailingAccessory={
+            <Text text70 $textNeutral>
+              Qty
+            </Text>
+          }
+          paddingB-20
+        />
+
       <Button
         onPress={onSubmit}
         label="Create Sadhana Log Item"
-        
+        margint-15
+        marginB-30
         ></Button>
-      <Text text >{JSON.stringify(parent)}</Text>
+      {/* <Text text >{JSON.stringify(parent)}</Text> */}
       
 
-        </Card>
-        </Dialog>
-        // </Incubator.Dialog>
+        {/* </Card> */}
+        {/* </Dialog> */}
+        {/* </Incubator.Dialog> */}
   
+        </View>
+        </View>
+  </Modal>
      
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 30,
-    paddingBottom: 0,
-    flex: 1,
-    backgroundColor: Colors.$backgroundDefault
-  }
+  modalContent: {
+    minHeight: '25%',
+    width: '100%',
+    borderTopRightRadius: 18,
+    borderTopLeftRadius: 18,
+    position: 'absolute',
+    bottom: 0,
+  },
+  titleContainer: {
+    height: '20%',
+    backgroundColor: '#464C55',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  title: {
+    color: '#fff',
+    fontSize: 16,
+  },
 });
 
 
