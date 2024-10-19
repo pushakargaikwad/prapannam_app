@@ -9,7 +9,7 @@ const AuthScreen = () => {
 
   useEffect(() => {
     // After handling authentication, navigate to the desired screen
-    //router.replace('/'); // Replace '/' with the route you want to navigate to after auth
+    router.replace('/'); // Replace '/' with the route you want to navigate to after auth
   }, []);
 
   return (
