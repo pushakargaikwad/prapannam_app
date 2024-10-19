@@ -13,15 +13,21 @@ const CreateSadhanaLogItem = ({parent=null,mutate, visible,setVisible}) => {
   const { call, result, loading, error: createSadhanaError, isCompleted, reset } = useFrappePostCall('prapannam_sadhana.prapannam_sadhana.api.sadhana.create_sadhana_log_and_items');
 
   
-  const {sadhanaLog, setSadhanaLog} = useContext(SadhanaContext);
+  const {sadhanaLog, setSadhanaLog, sadhanaTypes} = useContext(SadhanaContext);
   const { sadhanaDate, setSadhanaDate } = useContext(SadhanaContext);
   const [sadhana_type, setSadhanaType] = useState("Chanting");
   const [qty, setQty] = useState(0.0);
   // const [visible, setVisible] = useState(false);
-  const sadhana_type_items = [
-    { label: "Chanting", value: "Chanting" },
-    { label: "Reading", value: "Reading" },
-];
+//   const sadhana_type_items = [
+//     { label: "Chanting", value: "Chanting" },
+//     { label: "Reading", value: "Reading" },
+// ];
+  // Map sadhanaTypes to the Picker format { label, value }
+  const sadhana_type_items = sadhanaTypes.map((type) => ({
+    label: type.name,
+    value: type.name
+  }));
+
 
 useEffect(() => {
   console.log(JSON.stringify(result));
