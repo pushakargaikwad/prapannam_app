@@ -2,6 +2,7 @@ import { AuthContext } from "@/app/FrappeAuthProvider";
 import { SadhanaType } from "@/constants/types/SadhanaType";
 import { useFrappeGetCall, useFrappeGetDocList } from "frappe-react-sdk";
 import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from "react";
+import { AppState, AppStateStatus } from "react-native";
 import { Text, Button } from "react-native-ui-lib";
 
 export const SadhanaContext = createContext({});
@@ -41,6 +42,26 @@ export const SadhanaProvider = ({ children }: PropsWithChildren) => {
           mutate();
           sadhana_type_mutate();
       }} , [ isAuthenticated ]);
+
+
+      // Refetch data when the app comes into the foreground or restarts
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      if (nextAppState === "active" && isAuthenticated) {
+        // Refetch the data when the app is brought to the foreground
+        mutate();
+        sadhana_type_mutate();
+      }
+    };
+
+    // Add event listener for app state changes
+    const subscription = AppState.addEventListener("change", handleAppStateChange);
+
+    // Cleanup the event listener on unmount
+    return () => {
+      subscription.remove();
+    };
+  }, [isAuthenticated, mutate, sadhana_type_mutate]);
     
       if (isValidating) {
         // return <Text text30>Loading</Text>;
