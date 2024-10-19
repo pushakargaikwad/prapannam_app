@@ -2,30 +2,35 @@ import CreateSadhanaLogItem from "@/components/CreateSadhanaLogItem";
 import InlineAd from "@/components/InlineAd";
 import { SadhanaLogDetails } from "@/components/SadhanaLogDetails";
 import { SadhanaContext } from "@/utils/SadhanaProvider";
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { useContext, useState } from "react";
-import { ScrollView } from "react-native";
-import { View, DateTimePicker, Text } from "react-native-ui-lib";
+import { Pressable, ScrollView } from "react-native";
+import { View, DateTimePicker, Text, Incubator, Button, Dialog } from "react-native-ui-lib";
 
 export default function sadhanaLogDetailsScreen() {
-  const [sadhanaDate, setSadhanaDate] = useState<Date>(new Date());
+  // const [sadhanaDate, setSadhanaDate] = useState<Date>(new Date());
+  const { sadhanaDate, setSadhanaDate } = useContext(SadhanaContext);
+  const [visible, setVisible] = useState(false);
+  function onDismiss()  {
+    setVisible(false);
+  }
 
   return (
-    <>
-      {/* <ScrollView> */}
+ <>
 
-      <View flex padding-20>
+      <View g-$backgroundNeutralLight flex padding-20>
         <Stack.Screen
           options={{
+            headerTitle: "Sadhana Log",
             headerRight: () => (
               <DateTimePicker
-                placeholder={"Placeholder"}
+              placeholder={"Placeholder"}
                 value={sadhanaDate}
                 onChange={(e) => {
                   if (e instanceof Date) {
                     setSadhanaDate(e);
-                  }
-                }}
+                    }
+                    }}
               />
             ),
           }}
@@ -33,10 +38,26 @@ export default function sadhanaLogDetailsScreen() {
 
         <UserGroupsComp />
         <SadhanaLogDetails date={sadhanaDate.toISOString().split("T")[0]} />
-      </View>
-      {/* </ScrollView> */}
+        <Button label={"Another Addd New Sadhana Log"} onPress={()  => setVisible(true)} />
+        
       <InlineAd />
-    </>
+      </View>
+        <Dialog
+          useSafeArea
+          
+          bottom
+          
+          visible={visible}
+          onDismiss={onDismiss}
+          
+          >
+         <Text>Hello</Text>
+        {/* <CreateSadhanaLogItem />   */}
+      </Dialog>
+            </>
+   
+      
+  
   );
 }
 

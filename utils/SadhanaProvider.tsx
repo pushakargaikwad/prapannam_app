@@ -1,11 +1,14 @@
+import { AuthContext } from "@/app/FrappeAuthProvider";
 import { useFrappeGetCall } from "frappe-react-sdk";
-import { createContext, PropsWithChildren, useMemo } from "react";
+import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from "react";
 import { Text, Button } from "react-native-ui-lib";
 
 export const SadhanaContext = createContext({});
 
 export const SadhanaProvider = ({ children }: PropsWithChildren) => {
-    
+  const {isAuthenticated} =useContext(AuthContext);
+    const [sadhanaDate, setSadhanaDate] = useState(new Date());
+    const [sadhanaLog, setSadhanaLog] = useState({});
     const { data, error, isValidating, mutate } = useFrappeGetCall(
         "prapannam_sadhana.prapannam_sadhana.api.sadhana.get_sadhana_groups"
       );
@@ -16,6 +19,12 @@ export const SadhanaProvider = ({ children }: PropsWithChildren) => {
             defaultGroup: null
         }
     }, [data]);
+
+    // refetch the  data if authentication state changes
+    useEffect(() => {
+      if (isAuthenticated) {
+          mutate();
+      }} , [ isAuthenticated ]);
     
       if (isValidating) {
         // return <Text text30>Loading</Text>;
@@ -25,6 +34,6 @@ export const SadhanaProvider = ({ children }: PropsWithChildren) => {
       }
       
 
-    return <SadhanaContext.Provider value={{userGroups, defaultGroup}}>{children}</SadhanaContext.Provider>;
+    return <SadhanaContext.Provider value={{userGroups, defaultGroup, sadhanaDate, setSadhanaDate}}>{children}</SadhanaContext.Provider>;
     
 };
