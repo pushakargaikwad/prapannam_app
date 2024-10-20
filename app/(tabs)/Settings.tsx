@@ -1,6 +1,6 @@
 import { UserDetails } from "@/components/UserDetails"
 import { UserContext } from "@/utils/UserProvider"
-import { Stack } from "expo-router"
+import { router, Stack } from "expo-router"
 import { useContext } from "react"
 import { Button, Card, Colors, View,Text } from "react-native-ui-lib"
 import { AuthContext } from "../FrappeAuthProvider"
@@ -16,6 +16,7 @@ export default function SettingsScreen(){
             }}/>
 
             <UserDetails/>
+            <Button outline label="About" onPress={() => {router.push("/About")}}/>
             <Card 
                 row
                 height={160}
