@@ -32,7 +32,8 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    
   },
   "scheme": "com.prapannam"
 }
