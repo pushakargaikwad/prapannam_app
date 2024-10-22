@@ -1,5 +1,5 @@
 import { FrappeProvider } from "frappe-react-sdk";
-import { API_TOKEN, BASE_URL, SITE_NAME} from "../constants/dev/dev";
+// import { API_TOKEN, BASE_URL, SITE_NAME} from "../constants/dev/dev";
 import { createContext, useEffect, useState } from "react";
 
 import * as AuthSession from "expo-auth-session";
@@ -19,7 +19,7 @@ const FrappeAuthProvider = (props) => {
 
     useEffect(()=>{
       if(localServer){
-        BASE_URI = BASE_URL
+        // BASE_URI = BASE_URL
       }
       else{
 
@@ -126,14 +126,15 @@ const FrappeAuthProvider = (props) => {
 
   return (
     <FrappeProvider
-      url={localServer?BASE_URL:BASE_URI}
+      // url={localServer?BASE_URL:BASE_URI}
+      url={BASE_URI}
    
       tokenParams={{
         useToken: true,
         token: () => {
-          if (localServer) {
-            return API_TOKEN;
-          }
+          // if (localServer) {
+          //   return API_TOKEN;
+          // }
           return accessToken;
         },
         type: localServer ? "token" : "Bearer",
