@@ -4,7 +4,7 @@
     "slug": "prapannam",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icon11.png",
     "scheme": "com.prapannam",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -16,10 +16,7 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
+      "icon": "./assets/images/icon11.png",
       "package": "com.prapannam"
     },
     "web": {

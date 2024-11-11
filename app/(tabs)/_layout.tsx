@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Redirect, Tabs } from 'expo-router';
+import { Link, Redirect, router, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { AuthContext } from '../FrappeAuthProvider';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -20,6 +21,7 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const {isAuthenticated, promptAsync,logout} = useContext(AuthContext)
   if(!isAuthenticated){
+    // router.replace('/sign-in');
     return <Redirect href="/sign-in" />;
   }
   return (
@@ -53,17 +55,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="HomeScreen"
+        name="sadhanaLogDetailsScreen"
         options={{
           title: 'Sadhana Log Details',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="meditation" size={24} color={color} />,
         }}
       />
       <Tabs.Screen

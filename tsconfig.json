@@ -5,12 +5,16 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "tailwind.config": [
+        "./tailwind.config.js"
       ]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "app.config.js"
+    "app.config.js",
+    "nativewind-env.d.ts"
   ]
 }

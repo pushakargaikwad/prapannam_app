@@ -12,13 +12,14 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import FrappAuthProvider from "./FrappeAuthProvider";
-import mobileAds from 'react-native-google-mobile-ads';
+import mobileAds from "react-native-google-mobile-ads";
 import { Platform } from "react-native";
 import { SadhanaProvider } from "@/utils/SadhanaProvider";
 import { ThemeManager } from "react-native-ui-lib";
 import Colors from "@/constants/Colors";
 import { UserProvider } from "@/utils/UserProvider";
-
+import "../global.css";
+import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -34,21 +35,20 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    ...FontAwesome.font,
+    // SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    // ...FontAwesome.font,
+    "Roboto-Mono": require("../assets/fonts/RobotoMono-Regular.ttf"),
   });
-  
+
   useEffect(() => {
     (async () => {
       // Google AdMob will show any messages here that you just set up on the AdMob Privacy & Messaging page
-      if(Platform.OS!=='web'){
-
-        
+      if (Platform.OS !== "web") {
         // Initialize the ads
         await mobileAds().initialize();
       }
     })();
-}, [])
+  }, []);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -69,26 +69,27 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
 
-  ThemeManager.setComponentTheme('View', {
-    backgroundColor: 'rgba(255, 248, 220, 0.8)'
-});
+  //   ThemeManager.setComponentTheme('View', {
+  //     backgroundColor: 'rgba(255, 248, 220, 0.8)'
+  // });
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <GluestackUIProvider mode="light">
       <FrappAuthProvider>
         <UserProvider>
-
-        <SadhanaProvider>
-
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-        </Stack>
-        </SadhanaProvider>
+          <SadhanaProvider>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+              <Stack.Screen name="sign-in" />
+            </Stack>
+          </SadhanaProvider>
         </UserProvider>
       </FrappAuthProvider>
-    </ThemeProvider>
+    </GluestackUIProvider>
+    // </ThemeProvider>
   );
 }

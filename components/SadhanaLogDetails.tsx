@@ -1,10 +1,11 @@
 import { useFrappeGetCall } from "frappe-react-sdk";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Text, Button, View } from "react-native-ui-lib";
 import { SadhanaLogItems } from "./SadhanaLogItems";
 import { FlatList, RefreshControl } from "react-native";
 import CreateSadhanaLogItem from "./CreateSadhanaLogItem";
 import { SadhanaLog } from "@/constants/types/SadhanaLog";
+import { useFocusEffect } from "expo-router";
 
 // Define the structure for the inner message object
 interface SadhanaMessage {
@@ -26,6 +27,12 @@ export const SadhanaLogDetails = ({
     { date: date }
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      mutate();
+    },[])
+  );
+
   if (isValidating) {
     return <Text text30>Loading</Text>;
   }
@@ -39,7 +46,7 @@ export const SadhanaLogDetails = ({
           <Text>No Sadhana Log Found for the date</Text>
           <CreateSadhanaLogItem  mutate={mutate} visible={visible} setVisible={setVisible}  />
           <Button label={"Add New Sadhana Log"} onPress={()  => setVisible(true)} />
-          <Button label={"Reload Log"} onPress={() => mutate()} />
+          {/* <Button label={"Reload Log"} onPress={() => mutate()} /> */}
         </>
       );
     }

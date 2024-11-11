@@ -11,6 +11,19 @@ import { Feather } from "@expo/vector-icons";
 import { QuoteCard } from "@/components/QuoteCard";
 import { router } from "expo-router";
 
+Colors.loadColors({
+  primary: '#D4AF37',
+  secondary: '#8B4513',
+  background: '#FFF8DC',
+  text: '#4A4A4A',
+});
+
+Typography.loadTypographies({
+  h1: { fontSize: 28, fontWeight: '600', color: Colors.secondary },
+  h2: { fontSize: 22, fontWeight: '500', color: Colors.secondary },
+  body: { fontSize: 16, color: Colors.text },
+});
+
 export default function TabOneScreen() {
   const { isAuthenticated, promptAsync, logout  } =  useContext(AuthContext);
 
@@ -23,7 +36,7 @@ export default function TabOneScreen() {
       style={styles.background}>
         <View flex padding-20 style={styles.container}>
         <Text h1 style={styles.title}>Prapannam</Text>
-        <Text body style={styles.subtitle}>Your Spiritual Journey Companion</Text>
+        <Text body style={styles.subtitle}>Your Spiritual Journey Companion!</Text>
         
         {isAuthenticated && <UserDetails />}
         
@@ -38,7 +51,7 @@ yac chreyaḥ syān niścitaṁ brūhi tan me
 
       />
          <Card style={styles.card}>
-          <Text h2 style={styles.cardTitle}>Daily Sadhana</Text>
+          <Text className="text-xl ">Daily Sadhana</Text>
           <Button
             label="Log Sadhana"
             iconSource={() => <Feather name="edit-3" size={20} color={Colors.primary} />}
