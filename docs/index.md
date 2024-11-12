@@ -5,3 +5,4 @@ Welcome to the documentation for the Prapannam App! This app is a work in progre
 ## Documentation
 
 - [Local Android Development Build](./local-android-development-build.md)
+- [Local Android Release Build](./local-android-release-build.md)
