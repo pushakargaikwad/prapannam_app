@@ -35,6 +35,7 @@ module.exports = ({ config }) => {
       ...config.expo,
       name: getAppName(),
       slug: "prapannam",
+      newArchEnabled: true,
       android: {
         ...(config.android || {}),
         package: getUniqueIdentifier(),
