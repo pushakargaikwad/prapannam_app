@@ -1,76 +1,88 @@
 import { AuthContext } from "@/app/FrappeAuthProvider";
 import { SadhanaType } from "@/constants/types/SadhanaType";
+import { SadhanaGroup } from "@/constants/types/SadhanaGroup";
 import { useFrappeGetCall, useFrappeGetDocList } from "frappe-react-sdk";
 import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from "react";
 import { AppState, AppStateStatus } from "react-native";
 import { Text, Button } from "react-native-ui-lib";
 
-export const SadhanaContext = createContext({});
+interface SadhanaGroupsResponse {
+  message: {
+    message: string;
+    sadhana_groups_list: string[];
+    status: string;
+  }
+}
+
+interface SadhanaContextValue {
+  userGroups: string[];
+  defaultGroup: string | null;
+  sadhanaDate: Date;
+  sadhanaTypes: SadhanaType[];
+  setSadhanaDate: (date: Date) => void;
+}
+
+export const SadhanaContext = createContext<SadhanaContextValue>({} as SadhanaContextValue);
 
 export const SadhanaProvider = ({ children }: PropsWithChildren) => {
-  const {isAuthenticated} =useContext(AuthContext);
-    const [sadhanaDate, setSadhanaDate] = useState(new Date());
-    const [sadhanaLog, setSadhanaLog] = useState({});
-    const { data, error, isValidating, mutate } = useFrappeGetCall(
-        "prapannam_sadhana.prapannam_sadhana.api.sadhana.get_sadhana_groups"
-      );
+  const { isAuthenticated } = useContext(AuthContext);
+  const [sadhanaDate, setSadhanaDate] = useState(new Date());
+  const [sadhanaLog, setSadhanaLog] = useState({});
 
-      const { data: sadhana_type_data , error : sadhana_type_error, isValidating: sadhana_type_validating, mutate: sadhana_type_mutate } = useFrappeGetDocList<SadhanaType>("Sadhana Type" , {
-        fields: ["*"],
-       
-        /** Sort results by field and order  */
-        orderBy: {
-            field: "creation",
-            order: 'desc'
-        }
-    });
-    
-    const sadhanaTypes  = useMemo<SadhanaType[]>(()  => {
-       return  sadhana_type_data ?? [];
-       }, [sadhana_type_data]);
+  const { data, error, isValidating, mutate } = useFrappeGetCall<SadhanaGroupsResponse>(
+    "prapannam_sadhana.prapannam_sadhana.api.sadhana.get_sadhana_groups"
+  );
 
-      const { userGroups, defaultGroup} = useMemo(() => {
-        return {
-            userGroups: data?.message?.sadhana_groups_list,
-            defaultGroup: null
-        }
-    }, [data]);
+  const { data: sadhana_type_data } = useFrappeGetDocList<SadhanaType>("Sadhana Type", {
+    fields: ["*"],
+    orderBy: {
+      field: "creation",
+      order: 'desc'
+    }
+  });
 
-    // refetch the  data if authentication state changes
-    useEffect(() => {
-      if (isAuthenticated) {
-          mutate();
-          sadhana_type_mutate();
-      }} , [ isAuthenticated ]);
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log('Authenticated, fetching data...');
+      mutate();
+    }
+  }, [isAuthenticated, mutate]);
 
+  const sadhanaTypes = useMemo<SadhanaType[]>(() => {
+    return sadhana_type_data ?? [];
+  }, [sadhana_type_data]);
 
-      // Refetch data when the app comes into the foreground or restarts
+  const { userGroups, defaultGroup } = useMemo(() => {
+    if (!isAuthenticated || !data?.message?.sadhana_groups_list) {
+      console.log('No data available:', { isAuthenticated, hasData: !!data });
+      return { userGroups: [], defaultGroup: null };
+    }
+    const groups = data.message.sadhana_groups_list;
+    console.log('Processing groups:', groups);
+    const uniqueGroups = Array.from(new Set(groups));
+    console.log('Unique groups:', uniqueGroups);
+    return {
+      userGroups: uniqueGroups,
+      defaultGroup: null
+    }
+  }, [data, isAuthenticated]);
+
+  // Refetch data when the app comes into the foreground
   useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus) => {
       if (nextAppState === "active" && isAuthenticated) {
-        // Refetch the data when the app is brought to the foreground
         mutate();
-        sadhana_type_mutate();
       }
     };
 
-    // Add event listener for app state changes
     const subscription = AppState.addEventListener("change", handleAppStateChange);
+    return () => subscription.remove();
+  }, [isAuthenticated, mutate]);
 
-    // Cleanup the event listener on unmount
-    return () => {
-      subscription.remove();
-    };
-  }, [isAuthenticated, mutate, sadhana_type_mutate]);
-    
-      if (isValidating) {
-        // return <Text text30>Loading</Text>;
-      }
-      if (error) {
-        // return <Text>{JSON.stringify(error)}</Text>;
-      }
-      
-
-    return <SadhanaContext.Provider value={{userGroups, defaultGroup, sadhanaDate, sadhanaTypes, setSadhanaDate}}>{children}</SadhanaContext.Provider>;
-    
+  return (
+    <SadhanaContext.Provider value={{ userGroups, defaultGroup, sadhanaDate, sadhanaTypes, setSadhanaDate }}>
+      {children}
+    </SadhanaContext.Provider>
+  );
 };
+

@@ -12,20 +12,25 @@ const productionID = Device.osName === 'Android' ? androidAdmobBanner : iosAdmob
 const InlineAd = () => {
   const [isAdLoaded, setIsAdLoaded] = useState<boolean>(false);
   return (
-    <View style={{ height: isAdLoaded ? 'auto' : 0 }}>
+    <View style={{
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: '#fff',
+      height: isAdLoaded ? 'auto' : 0
+    }}>
       <BannerAd
-        // It is extremely important to use test IDs as you can be banned/restricted by Google AdMob for inappropriately using real ad banners during testing
         unitId={__DEV__ ? TestIds.BANNER : productionID}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true, 
-          // You can change this setting depending on whether you want to use the permissions tracking we set up in the initializing
+          requestNonPersonalizedAdsOnly: true,
         }}
         onAdLoaded={() => {
           setIsAdLoaded(true);
         }}
       />
-    </View >
+    </View>
   );
 };
 

@@ -27,51 +27,47 @@ export const SadhanaLogDetails = ({
   );
 
   if (isValidating) {
-    return <Text text30>Loading</Text>;
+    return <Text text70>Loading...</Text>;
   }
   if (error) {
-    return <Text>{JSON.stringify(error)}</Text>;
+    return <Text text70 color="#ff0000">{JSON.stringify(error)}</Text>;
   }
   if (data) {
     if (data.message.status != "ok") {
       return (
-        <>
-          <Text>No Sadhana Log Found for the date</Text>
-          <CreateSadhanaLogItem  mutate={mutate} visible={visible} setVisible={setVisible}  />
-          <Button label={"Add New Sadhana Log"} onPress={()  => setVisible(true)} />
+        <View backgroundColor="#fff" padding-16 br20>
+          <Text text70 marginB-10>No Sadhana Log Found for the date</Text>
+          <CreateSadhanaLogItem mutate={mutate} visible={visible} setVisible={setVisible} />
+          <Button label={"Add New Sadhana Log"} onPress={() => setVisible(true)} marginB-10 />
           <Button label={"Reload Log"} onPress={() => mutate()} />
-        </>
+        </View>
       );
     }
 
-    console.log("Sadhana LOG!!!!!!!!!!!!!!",data);
     return (
-      <>
-        {/* There can be multiple sadhana logs for given date, we are receiving a list. therefore iterating over those logs */}
+      <View backgroundColor="#fff" padding-16 br20>
         <FlatList
           data={data.message.sadhana_list}
-          renderItem={({ item }: {item: SadhanaLog}) => (
-            <>
-              <Text text50>Sadhana Details: </Text>
-              <Text>Points: {item.total_points}</Text>
-              <Text>Date: {item.date}</Text>
-              
-              {/** Sadhana log items are the individual log items  */}
-              <SadhanaLogItems sadhana_log={item.name} />
-         
+          renderItem={({ item }: { item: SadhanaLog }) => (
+            <View marginB-20>
+              <Text text50 marginB-10>Sadhana Details:</Text>
+              <Text text70 marginB-5>Points: {item.total_points}</Text>
+              <Text text70 marginB-10>Date: {item.date}</Text>
 
-              <CreateSadhanaLogItem parent={item.name} mutate={mutate} visible={visible} setVisible={setVisible}  />
-              <Button label={"Add New Sadhana Log"} onPress={()  => setVisible(true)} />
-           
-            </>
+              <SadhanaLogItems sadhana_log={item.name} />
+
+              <View marginT-10>
+                <CreateSadhanaLogItem parent={item.name} mutate={mutate} visible={visible} setVisible={setVisible} />
+                <Button label={"Add New Sadhana Log"} onPress={() => setVisible(true)} />
+              </View>
+            </View>
           )}
           keyExtractor={(item) => item.name}
-          refreshControl={ <RefreshControl refreshing={isValidating} onRefresh={mutate} /> }
-        ></FlatList>
-
-        {/* <Button label={"Reload Log"} onPress={() => mutate()}></Button> */}
-      </>
+          refreshControl={<RefreshControl refreshing={isValidating} onRefresh={mutate} />}
+        />
+      </View>
     );
   }
   return null;
 };
+
